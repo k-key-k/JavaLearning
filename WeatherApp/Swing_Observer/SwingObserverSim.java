@@ -1,35 +1,50 @@
 package WeatherApp.Swing_Observer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SwingObserverSim {
-    JFrame frame;
-    public static void main(String[] args) {
-        SwingObserverSim sim = new SwingObserverSim();
-        sim.go();
+public class SwingObserverSim extends JFrame {
+    private final JPanel btn_panel;
+    private final JButton start, stop;
+    private final int width, height;
+
+    public SwingObserverSim(String Title, int w, int h) {
+        super(Title);
+        width = w;
+        height = h;
+
+        setSize(width, height);
+        btn_panel = new JPanel();
+        start = new JButton("Start");
+        stop = new JButton("Stop");
+
+        ActionListener btn_listener = new ButtonListener();
+        start.setActionCommand("Запуск");
+        stop.setActionCommand("Остановка");
+
+        start.addActionListener(btn_listener);
+        stop.addActionListener(btn_listener);
+
+        btn_panel.add(start);
+        btn_panel.add(stop);
+        getContentPane().add(BorderLayout.NORTH, btn_panel);
     }
-    public void go() {
-        frame = new JFrame();
 
-        JButton btn = new JButton("should i do it?");
-        btn.addActionListener(new AngelListener());
-        btn.addActionListener(new DevilListener());
+    private class ButtonListener implements ActionListener {
 
-    }
-
-    class AngelListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("don't do it");
-        }
-    }
-
-    class DevilListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Do it!!!");
+            String command = e.getActionCommand();
+            if (command.equals("Остановка")) {
+                start.setText("Start");
+                stop.setText("Stop");
+            } else {
+                start.setText("Started");
+                stop.setText("Stop");
+            }
         }
     }
 }
+
