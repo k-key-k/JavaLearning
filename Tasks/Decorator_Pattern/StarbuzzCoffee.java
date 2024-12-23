@@ -5,14 +5,14 @@ public class StarbuzzCoffee {
         Beverage beverage = new Espresso();
         beverage.setSize(Beverage.Size.GRANDE);
         System.out.println(beverage.getDescription()
-        + " $" + beverage.cost());
+                + " $" + beverage.cost());
 
         Beverage beverage2 = new DarkRoast();
         beverage2 = new Mocha(beverage2);
         beverage2 = new Mocha(beverage2);
         beverage2 = new Whip(beverage2);
         System.out.println(beverage2.getDescription()
-        + " $" + beverage2.cost());
+                + " $" + beverage2.cost());
 
         Beverage beverage3 = new HouseBlend();
         beverage3.setSize(Beverage.Size.VENTI);
@@ -20,8 +20,14 @@ public class StarbuzzCoffee {
         beverage3 = new Mocha(beverage3);
         beverage3 = new Whip(beverage3);
         System.out.println(beverage3.getDescription()
-        + " $" + beverage3.cost());
+                + " $" + beverage3.cost());
 
+        beverage3 = new AntiDecorator(beverage3).beverage;
+        System.out.println("After remove last:");
+        System.out.println(beverage3.getDescription() + " $" + beverage3.cost());
 
+        beverage3 = new AntiDecorator(beverage3).removeAll(beverage3);
+        System.out.println("After remove all:");
+        System.out.println(beverage3.getDescription() + " $" + beverage3.cost());
     }
 }
